@@ -19,21 +19,23 @@ class solucionador(object):
 		return path
 	def euclidea(self,punto1,punto2):
 		return (((punto2[0]-punto1[0])**2)+((punto2[1]-punto1[1])**2))**(1/2)
-		def euristica2():
-			pass
 
-	def A_estrella_Eu(self,frontier):
+	def chebyshev(self,punto1,punto2):
+		return max((punto2[0]-punto1[0]),(punto2[1]-punto1[1]))
+
+	def A_estrella(self,frontier,euristica):
 		func = []
 		for goal in (self.problem.goal):
 			for path in frontier:
+
 				#print path ,len(path) , (path[len(path)-1][0],path[len(path)-1][1]),goal
-				func.append((len(path) + self.euclidea((path[len(path)-1][0],path[len(path)-1][1]),goal),path))
+				if euristica == 1:
+					func.append((len(path) + self.euclidea((path[len(path)-1][0],path[len(path)-1][1]),goal),path))
+				elif euristica == 2:
+					func.append((len(path) + self.chebyshev((path[len(path)-1][0],path[len(path)-1][1]),goal),path))
 		#print func
 		#print min(func)
 		return min(func)[1]
-
-	def A_estrella_(self):
-		pass
 
 	def remove_choice(self,frontier):
 		if self.problem.met == 1:
@@ -41,9 +43,9 @@ class solucionador(object):
 		elif self.problem.met == 2:
 			path = self.depth_first(frontier)
 		elif self.problem.met == 3:
-			path = self.A_estrella_Eu(frontier)
+			path = self.A_estrella(frontier,1)
 		else:
-			path = self.A_estrella_()
+			path = self.A_estrella(frontier,2)
 		return path
 
 	def graph_search(self, problem):
@@ -52,21 +54,21 @@ class solucionador(object):
 	    final_path = []
 	    while True:
 	    	if len(frontier):
-	    		print 'frontera',frontier
-	    		print 'explorados', explored
-	    		print 'goal', problem.goal
-	    		print 'initial', problem.initial
+	    		#print 'frontera',frontier
+	    		#print 'explorados', explored
+	    		#print 'goal', problem.goal
+	    		#print 'initial', problem.initial
 	    		path = self.remove_choice(frontier)
 	    		frontier.remove(path)
 	    		s = path[-1]
 	    		explored.append(s)
 	    		if problem.goal_test(s):
 	    			return path
-	    		print('actions',problem.actions(s))
+	    		#print('actions',problem.actions(s))
 	    		for a in problem.actions(s):
-	    			print('action',a)
+	    			#print('action',a)
 	    			result = problem.result(s,a)
-	    			print ('result',result)
+	    			#print ('result',result)
 
 	    			if result not in explored:
 	    				new_path = []
