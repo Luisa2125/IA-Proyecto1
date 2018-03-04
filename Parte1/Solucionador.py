@@ -54,17 +54,19 @@ class solucionador(object):
 	    	if len(frontier):
 	    		print 'frontera',frontier
 	    		print 'explorados', explored
+	    		print 'goal', problem.goal
+	    		print 'initial', problem.initial
 	    		path = self.remove_choice(frontier)
 	    		frontier.remove(path)
 	    		s = path[-1]
 	    		explored.append(s)
 	    		if problem.goal_test(s):
 	    			return path
-	    		#print('actions',problem.actions(s))
+	    		print('actions',problem.actions(s))
 	    		for a in problem.actions(s):
-	    			#print('action',a)
+	    			print('action',a)
 	    			result = problem.result(s,a)
-	    			#print ('result',result)
+	    			print ('result',result)
 
 	    			if result not in explored:
 	    				new_path = []

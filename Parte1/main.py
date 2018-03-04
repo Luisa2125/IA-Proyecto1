@@ -21,7 +21,7 @@ class main(object):
 
 import proyecto as p
 from Framework import Framework as fw
-n = 20
+n = 10
 mat = p.discretizar(p.im,n)
 
 nodos =main(mat)
@@ -46,8 +46,15 @@ solucion1 = solucionador(problem1)
 #solucion3 = solucionador(problem3)
 #solucion4 = solucionador(problem4)
 #print(solucion1.final_path)
-for pix in solucion1.final_path:
-    mat[pix[0]][pix[1]] = (0,0,255)
+if solucion1.final_path == False: 
+    print ('No hay solucion')
+else:
+    for pix in solucion1.final_path:
+        if pix == problem1.initial or pix in problem1.goal:
+            pass
+        else:
+            mat[pix[0]][pix[1]] = (0,0,255)
+    
 
 new_im = Image.fromarray(mat.astype(np.uint8))
 new_im.save("solucion1.bmp")

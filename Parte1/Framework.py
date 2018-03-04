@@ -17,23 +17,23 @@ class Framework(object):
 		actions = []
 		try:
 		
-			if self.matrix[s[0]][s[1]+1].color == (255,255,255) and s[1] < 500:
-				actions.append('arriba')
-			if self.matrix[s[0]][s[1]-1].color ==(255,255,255) and s[1] >0: 
-				actions.append('abajo') 
-			if self.matrix[s[0]+1][s[1]].color ==(255,255,255) and s[0] < 500:
-				actions.append('derecha') 
-			if self.matrix[s[0]-1][s[1]].color ==(255,255,255) and s[0] > 0:
+			if self.matrix[s[1]][s[0]+1].color == (255,255,255) and s[1] < 500:
+				actions.append('derecha')
+			if self.matrix[s[1]][s[0]-1].color ==(255,255,255) and s[1] >0: 
 				actions.append('izquierda') 
+			if self.matrix[s[1]+1][s[0]].color ==(255,255,255) and s[0] < 500:
+				actions.append('abajo') 
+			if self.matrix[s[1]-1][s[0]].color ==(255,255,255) and s[0] > 0:
+				actions.append('arriba') 
 		except:
-			pass
 			#print (s)
+			pass
 		return actions
 	def result(self,s,a):
 		#print ('result',s,a)
-		result = self.matrix[s[0]][s[1]+1] if a == 'arriba' else ( self.matrix[s[0]][s[1]-1] if a == 'abajo' else ( self.matrix[s[0]-1][s[1]] if a == 'izquierda' else (self.matrix[s[0]+1][s[1]])))
+		result = self.matrix[s[1]][s[0]+1] if a == 'derecha' else ( self.matrix[s[1]][s[0]-1] if a == 'izquierda' else ( self.matrix[s[1]-1][s[0]] if a == 'arriba' else ( self.matrix[s[1]+1][s[0]] if a == 'abajo' else 'nada')))
 		#print('result adentro', result)
-		return result.x,result.y
+		return result.y,result.x
 	def goal_test(self,s):
 		#print('goal test',s,'color',self.matrix[s[0]][s[1]].color)
 		if self.matrix[s[0]][s[1]].color == (0,255,0):
