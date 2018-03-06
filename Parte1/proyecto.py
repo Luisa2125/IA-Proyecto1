@@ -2,7 +2,7 @@ from numpy import asarray
 import numpy as np
 from PIL import Image
 import itertools
-im = asarray(Image.open('lab1.bmp'))
+im = asarray(Image.open('1.bmp'))
 def discretizar(im,n):
 
 	#print (len(im),len(im[0]))

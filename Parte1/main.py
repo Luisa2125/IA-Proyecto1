@@ -62,10 +62,12 @@ mat = p.discretizar(p.im,n)
 nodos =main(mat)
 
 initial = ()
+x = 0
 for row in nodos.nodes:
     for item in row:
-        if item.initial:
+        if item.initial and x == 1:
             initial = (item.x,item.y)
+        x+=1
 discret_matrix = Image.fromarray(mat.astype(np.uint8))
 final_matrix = discret_matrix.resize((1000, 1000))
 final_matrix.show()
